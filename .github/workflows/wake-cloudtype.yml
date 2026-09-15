@@ -1,0 +1,13 @@
+name: wake-cloudtype
+on:
+  schedule:
+    - cron: "0 22 * * *"
+  workflow_dispatch: {}
+jobs:
+  wake:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm i -g @cloudtype/cli
+      - run: ctype login -t ${{ secrets.CLOUDTYPE_API_KEY }}
+      - run: ctype apply
